@@ -23,12 +23,12 @@
         <version>2.4.0</version>
     </parent>
 
-    <groupId>rva.simpleSpringBoot</groupId>
+    <groupId>rva.simple.SpringBoot</groupId>
     <artifactId>rva.simple.SpringBoot</artifactId>
     <version>1.0.2</version>
     <packaging>jar</packaging>
 
-    <name>Blazebit Persistence Spring Boot Sample</name>
+    <name>RVA.simpleSpringBoot</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -155,6 +155,15 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://habr.com/ru/post/590199/ -->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-report-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-report-plugin</artifactId>
+            <version>3.0.0-M9</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -195,4 +204,27 @@
             </build>
         </profile>
     </profiles>
+
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+<!-- Show only bad tests : false -->
+                    <showSuccess>true</showSuccess>
+                    <outputName>JUnit-Test-Report.RVA.simple.SpringBoot</outputName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+
+        </plugins>
+    </reporting>
 </project>
