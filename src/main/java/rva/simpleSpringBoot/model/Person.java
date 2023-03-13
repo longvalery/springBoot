@@ -31,8 +31,9 @@ public class Person {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "owner")
-    private Set<Cat> kittens = new HashSet<>();
-
+// RVA
+    private Set<Cat> cats = new HashSet<>();
+// /RVA
     public Person() {
     }
 
@@ -55,12 +56,13 @@ public class Person {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Set<Cat> getKittens() {
-        return kittens;
+// RVA
+    public Set<Cat> getCats() {
+        return cats;
     }
 
-    public void setKittens(Set<Cat> kittens) {
-        this.kittens = kittens;
+    public void setCats(Set<Cat> cats) {
+        this.cats = cats;
     }
+// /RVA
 }

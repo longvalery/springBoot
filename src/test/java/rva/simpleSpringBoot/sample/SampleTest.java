@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import rva.simpleSpringBoot.LoadProperies;
 import rva.simpleSpringBoot.model.Cat;
+import rva.simpleSpringBoot.model.Person;
 import rva.simpleSpringBoot.repository.PersonSimpleViewRepository;
 import rva.simpleSpringBoot.view.CatSimpleView;
 import rva.simpleSpringBoot.repository.CatSimpleViewRepository;
@@ -33,6 +34,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 import com.blazebit.persistence.integration.view.spring.EnableEntityViews;
 import com.blazebit.persistence.spring.data.repository.config.EnableBlazeRepositories;
+import rva.simpleSpringBoot.view.CatWithOwnerView;
 import rva.simpleSpringBoot.view.PersonSimpleView;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,27 +50,27 @@ public class SampleTest extends AbstractSampleTest {
     @Test
     public void sampleTestRVA() {
 // Check Persons
+
 // Get Expected Person Count
         LoadProperies loadProperies = new LoadProperies("application.properties");
 //        System.out.println("-=-=-  " +loadProperies.getProperties().getProperty("test.person.count").toString());
         long expectedPersonCount = Long.parseLong(loadProperies.getProperties().getProperty("test.person.count"));
 // Test
-        final Set<Cat>[] cats = new Set[0];
-
         final Iterable<PersonSimpleView> listPersons = personSimpleViewRepository.findAll();
-        final AtomicLong[] count = {new AtomicLong()};
-        count[0].set(0);
-        listPersons.forEach(person -> {
-            count[0].getAndIncrement();
+        long count = 0;
+        for(PersonSimpleView person: listPersons) {
+            count++;
+            long id = person.getId();
+            Optional<Person> p = personSimpleViewRepository.findById(id);
+            List<Cat> cats = catSimpleViewRepository.findAllByOwner(p);
             System.out.println("Person name is  " + person.getName());
-      //      cats[0] = person.getKittens();
-      //      cats[0].forEach(cat -> {
-      //          System.out.println("  has cat called  " + cat.getName());
-      //                          });
-        });
+            if (cats.size() == 0) {System.out.println("  has NO cats! ");}
+            else {
+                cats.forEach(cat -> { System.out.println("  has cat called  " + cat.getName()); });
+                 }
+                                         };
 
-        Assert.assertEquals(expectedPersonCount, count[0].longValue());
-//        System.out.println("-=-=-  " + count[0].toString());
+        Assert.assertEquals(expectedPersonCount, count);
                                  }
 // /RVA
     @Test

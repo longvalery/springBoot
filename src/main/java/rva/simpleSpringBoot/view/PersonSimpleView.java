@@ -28,7 +28,5 @@ public interface PersonSimpleView {
     Long getId();
 
     String getName();
-//RVA
-    Set<Cat> getKittens();
-// /RVA
+
 }

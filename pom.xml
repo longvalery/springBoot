@@ -25,7 +25,7 @@
 
     <groupId>rva.simpleSpringBoot</groupId>
     <artifactId>rva.simple.SpringBoot</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>Blazebit Persistence Spring Boot Sample</name>
