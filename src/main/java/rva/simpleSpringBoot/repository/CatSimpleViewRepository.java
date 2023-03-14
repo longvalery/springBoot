@@ -17,6 +17,7 @@
 package rva.simpleSpringBoot.repository;
 
 import com.blazebit.persistence.view.*;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.blazebit.persistence.spring.data.repository.EntityViewRepository;
@@ -33,5 +34,13 @@ public interface CatSimpleViewRepository extends EntityViewRepository<CatSimpleV
 // RVA
  //   Cat findById(long id);
     List<Cat> findAllByOwner(Optional<Person> owner);
+
+
+    @Query(value = "select cat.name as catName, cat.age as catAge,  COALESCE(person.name,'No owner') as personName " +
+            "from cat cat " +
+            "left join person person on cat.owner_id=person.id ",
+            nativeQuery = true)
+    List<CatWithPersonView> findAllCatsWithOwner();
+
 // /RVA
 }

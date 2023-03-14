@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.*;
 import com.blazebit.persistence.integration.view.spring.EnableEntityViews;
 import com.blazebit.persistence.spring.data.repository.config.EnableBlazeRepositories;
 import rva.simpleSpringBoot.view.CatWithOwnerView;
+import rva.simpleSpringBoot.view.CatWithPersonView;
 import rva.simpleSpringBoot.view.PersonSimpleView;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -82,7 +83,7 @@ public class SampleTest extends AbstractSampleTest {
         listIterable.forEach(view -> {
             list.add(view);
 // RVA
-         //   System.out.println("Cat name is " + view.getName());
+            System.out.println("Cat name is " + view.getName());
 // /RVA
                                      });
         Assert.assertEquals(expectedCatCount, list.size());
@@ -90,20 +91,18 @@ public class SampleTest extends AbstractSampleTest {
 
 // RVA
     @Test
-    public void sampleTestRVACats() {
+    public void sampleTestRVACatsWithOwnerByQuery() {
 // Get Expected Person Count
         LoadProperies loadProperies = new LoadProperies("application.properties");
         long expectedCatCount = Long.parseLong(loadProperies.getProperties().getProperty("test.cat.count"));
 // Test
-        final Iterable<CatSimpleView> listIterable = catSimpleViewRepository.findAll();
+        final Iterable<CatWithPersonView> listIterable = catSimpleViewRepository.findAllCatsWithOwner();
         long count = 0;
-        for(CatSimpleView cat : listIterable ) {
+        for(CatWithPersonView cat : listIterable ) {
             count ++;
-            long id = cat.getId();
- //           Cat c =  catSimpleViewRepository.findById(id);
  //           Cat father = c.getFather();
  //           Cat mother = c.getMother();
- //           System.out.println("Cat name is " + cat.getName() + " Father:" + father + " Mother:" + mother);
+            System.out.println("Cat name is " + cat.getCatName() + " Age:" + cat.getCatAge() + " belongs  Owner:" + cat.getPersonName());
                                                 }
         Assert.assertEquals(expectedCatCount, count );
     }

@@ -71,14 +71,19 @@ public abstract class AbstractSampleTest {
             persons.add(person);
                                                 }
 // Create Cats
+        Cat cat;
         for (i=0; i < expectedCatCount; i++) {
             catName = "Cat" + i;
             age = random.nextInt(15);
-            owner = random.nextInt((int) expectedPersonCount);
-            if (owner == expectedPersonCount) {
-                owner = 0;
-                                              }
-            Cat cat = new Cat(catName,age,persons.get(owner));
+            rand = random.nextInt(100);
+            if (rand < 80) { // set Owner for 80% cats only
+                owner = random.nextInt((int) expectedPersonCount);
+                if (owner == expectedPersonCount) { owner = 0; }
+                   cat = new Cat(catName,age,persons.get(owner));
+                           }
+            else {
+                   cat = new Cat(catName,age,null);
+                 }
             em.persist(cat);
             cats.add(cat);
         }
