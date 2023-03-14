@@ -17,7 +17,7 @@
 package rva.simpleSpringBoot.sample;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
+
 
 import rva.simpleSpringBoot.LoadProperies;
 import rva.simpleSpringBoot.model.Cat;
@@ -34,7 +34,8 @@ import org.springframework.context.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 import com.blazebit.persistence.integration.view.spring.EnableEntityViews;
 import com.blazebit.persistence.spring.data.repository.config.EnableBlazeRepositories;
-import rva.simpleSpringBoot.view.CatWithOwnerView;
+//  import rva.simpleSpringBoot.view.CatWithOwnerView;
+import rva.simpleSpringBoot.view.CatWithMotherAndFatherView;
 import rva.simpleSpringBoot.view.CatWithPersonView;
 import rva.simpleSpringBoot.view.PersonSimpleView;
 
@@ -65,9 +66,9 @@ public class SampleTest extends AbstractSampleTest {
             System.out.println("Person name is  " + person.getName());
             if (cats.size() == 0) {System.out.println("  has NO cats! ");}
             else {
-                cats.forEach(cat -> { System.out.println("  has cat called  " + cat.getName()); });
+                cats.forEach(cat -> System.out.println("  has cat called  " + cat.getName()) );
                  }
-                                         };
+                                         }
 
         Assert.assertEquals(expectedPersonCount, count);
                                  }
@@ -100,12 +101,28 @@ public class SampleTest extends AbstractSampleTest {
         long count = 0;
         for(CatWithPersonView cat : listIterable ) {
             count ++;
- //           Cat father = c.getFather();
- //           Cat mother = c.getMother();
             System.out.println("Cat name is " + cat.getCatName() + " Age:" + cat.getCatAge() + " belongs  Owner:" + cat.getPersonName());
                                                 }
         Assert.assertEquals(expectedCatCount, count );
     }
+
+    @Test
+    public void sampleTestRVACatsWithMotherAndFatherByQuery() {
+// Get Expected Person Count
+        LoadProperies loadProperies = new LoadProperies("application.properties");
+        long expectedCatCount = Long.parseLong(loadProperies.getProperties().getProperty("test.cat.count"));
+// Test
+        final Iterable<CatWithMotherAndFatherView> listIterable = catSimpleViewRepository.findAllCatsWithMotherAndFather();
+        long count = 0;
+        for(CatWithMotherAndFatherView cat : listIterable ) {
+            count ++;
+            System.out.println("Cat name is " + cat.getCatName() + " Age:" + cat.getCatAge()
+                    + " Mother:" + cat.getMother() + " Father:" + cat.getFather());
+        }
+        Assert.assertEquals(expectedCatCount, count );
+    }
+
+
 // /RVA
     @Configuration
     @ComponentScan("rva.simpleSpringBoot")

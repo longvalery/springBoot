@@ -27,8 +27,4 @@ public interface CatSimpleView {
 
     String getName();
 
-// RVA
- //   Cat getMother();
-
-  //  Cat getFather();
 }

@@ -21,10 +21,10 @@ import javax.persistence.EntityManager;
 import rva.simpleSpringBoot.LoadProperies;
 import rva.simpleSpringBoot.model.Cat;
 import rva.simpleSpringBoot.model.Person;
-import rva.simpleSpringBoot.view.CatSimpleView;
-import rva.simpleSpringBoot.view.CatWithOwnerView;
-import rva.simpleSpringBoot.view.PersonSimpleView;
-import org.junit.After;
+//import rva.simpleSpringBoot.view.CatSimpleView;
+//import rva.simpleSpringBoot.view.CatWithOwnerView;
+//import rva.simpleSpringBoot.view.PersonSimpleView;
+//import org.junit.After;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
+//import java.util.Set;
 
 @Transactional
 public abstract class AbstractSampleTest {
@@ -74,7 +74,7 @@ public abstract class AbstractSampleTest {
         Cat cat;
         for (i=0; i < expectedCatCount; i++) {
             catName = "Cat" + i;
-            age = random.nextInt(15);
+            age = random.nextInt(15) + 1;
             rand = random.nextInt(100);
             if (rand < 80) { // set Owner for 80% cats only
                 owner = random.nextInt((int) expectedPersonCount);
