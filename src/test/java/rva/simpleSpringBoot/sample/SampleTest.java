@@ -19,7 +19,6 @@ package rva.simpleSpringBoot.sample;
 import java.util.*;
 
 
-import rva.simpleSpringBoot.LoadProperies;
 import rva.simpleSpringBoot.model.Cat;
 import rva.simpleSpringBoot.model.Person;
 import rva.simpleSpringBoot.repository.PersonSimpleViewRepository;
@@ -34,7 +33,6 @@ import org.springframework.context.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 import com.blazebit.persistence.integration.view.spring.EnableEntityViews;
 import com.blazebit.persistence.spring.data.repository.config.EnableBlazeRepositories;
-//  import rva.simpleSpringBoot.view.CatWithOwnerView;
 import rva.simpleSpringBoot.view.CatWithMotherAndFatherView;
 import rva.simpleSpringBoot.view.CatWithPersonView;
 import rva.simpleSpringBoot.view.PersonSimpleView;
@@ -73,6 +71,7 @@ public class SampleTest extends AbstractSampleTest {
         Assert.assertEquals(expectedPersonCount, count);
                                  }
 // /RVA
+
     @Test
     public void sampleTest() {
 // Get Expected Person Count

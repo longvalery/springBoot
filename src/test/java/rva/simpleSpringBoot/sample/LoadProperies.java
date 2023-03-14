@@ -1,4 +1,4 @@
-package rva.simpleSpringBoot;
+package rva.simpleSpringBoot.sample;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -16,7 +16,6 @@
 
 package rva.simpleSpringBoot.repository;
 
-// import com.blazebit.persistence.view.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +31,6 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface CatSimpleViewRepository extends EntityViewRepository<CatSimpleView, Long> {
 // RVA
- //   Cat findById(long id);
     List<Cat> findAllByOwner(Optional<Person> owner);
 
 
